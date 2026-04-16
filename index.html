@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragon Ball 2048 - Ultra Instinct Edition</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="start-screen">
+        <h1 class="db-title">DragonBall<span class="z-version">2048</span></h1>
+        <div class="menu-versoes">
+            <p><button class="versao-btn" data-versao="DBZ">Dragon Ball Z</button></p>
+            <p><button class="versao-btn" data-versao="DBS">Dragon Ball Super</button></p>
+            <p><button class="versao-btn" data-versao="DBGT">Dragon Ball GT</button></p>
+        </div>
+    </div>
+
+    <div id="game-container">
+        <div id="score">Score: 0</div>
+        <div class="controls">
+            <button id="restart-button" class="btn-db">Restart</button>
+            <button id="back-button" class="btn-db">Voltar</button>
+        </div>
+        <div id="game-board"></div>
+    </div>
+
+    <div id="game-over">
+        <h2>Game Over</h2>
+        <button id="restart-button-over" class="btn-db">Restart</button>
+    </div>
+
+    <script
+        type="module" src="script.js"></script>
+</body>
+</html>
