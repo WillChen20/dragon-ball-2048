@@ -33,50 +33,61 @@ var touchstartX
 var touchstartY
 var touchendX
 var touchendY
+let inputConfigured = false
 
 function setupInput() {
+    if (inputConfigured) return
+    inputConfigured = true
+
     window.addEventListener("keydown", e => {
-        console.log("Tecla pressionada:", e.key);
-        try {
-            handleInput(e.key)
-        } catch (erro) {
-            console.error("Erro em handleInput:", erro);
+        handleInput(e.key)
+    })
+
+    gameBoard.addEventListener("touchstart", e => {
+        if (e.changedTouches.length > 0) {
+            touchstartX = e.changedTouches[0].screenX
+            touchstartY = e.changedTouches[0].screenY
         }
-    }, {once : true})
+    }, {passive: true})
 
-    document.addEventListener("touchstart", e => {
-        e.preventDefault();
-        touchstartX = e.changedTouches[0].screenX
-        touchstartY = e.changedTouches[0].screenY
-    }, {passive: false, once : true})
+    gameBoard.addEventListener("touchend", e => {
+        if (e.changedTouches.length > 0) {
+            touchendX = e.changedTouches[0].screenX
+            touchendY = e.changedTouches[0].screenY
+            handleGesture()
+        }
+    })
 
-    document.addEventListener("touchend", e=> {
-        touchendX = e.changedTouches[0].screenX
-        touchendY = e.changedTouches[0].screenY
-        handleGesture()
-    }, {once : true})
+    gameBoard.addEventListener("touchmove", e => {
+        if (e.changedTouches.length > 0) {
+            e.preventDefault()
+        }
+    }, {passive: false})
 }
 
 function handleGesture() {
-    if (Math.abs(touchendX-touchstartX) > Math.abs(touchendY - touchstartY)) {
-        if (touchendX < touchstartX) {
-            handleInput("ArrowLeft")
-            console.log("left")
-        } else {
-            handleInput("ArrowRight")
-            console.log("right")
-        }
-        
-    } else {
-        if (touchendY < touchstartY) {
-            handleInput("ArrowUp")
-            console.log("up")
-        } else {
-            handleInput("ArrowDown")
-            console.log("down")
-        }
+    const deltaX = touchendX - touchstartX
+    const deltaY = touchendY - touchstartY
+    const distance = Math.max(Math.abs(deltaX), Math.abs(deltaY))
+    const swipeThreshold = 30
+
+    if (distance < swipeThreshold) {
+        return
     }
 
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        if (deltaX < 0) {
+            handleInput("ArrowLeft")
+        } else {
+            handleInput("ArrowRight")
+        }
+    } else {
+        if (deltaY < 0) {
+            handleInput("ArrowUp")
+        } else {
+            handleInput("ArrowDown")
+        }
+    }
 }
 
 

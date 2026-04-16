@@ -72,6 +72,7 @@ body{
     border-radius: 10px;
     position: relative;
     margin: 20px 0;
+    touch-action: none;
 }
 
 
