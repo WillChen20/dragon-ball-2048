@@ -19,6 +19,12 @@ const versoes ={
     }
 }
 
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js')
+    .then(() => console.log("Guerreiro Z: Modo Offline Ativado!"))
+    .catch(err => console.log("Erro ao ativar modo offline:", err));
+}
+
 
 const gameBoard = document.getElementById("game-board");
 const scoreText = document.getElementById("score");

@@ -1,0 +1,15 @@
+{
+  "name": "Dragon Ball 2048",
+  "short_name": "DB2048",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#ff9100",
+  "icons": [
+    {
+      "src": "img/LogoDBZ.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
