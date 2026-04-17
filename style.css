@@ -471,7 +471,7 @@ body.tema-dbs .tile[data-value="2048"]{
 
 @media (max-width: 500px) {
     #game-container {
-        display: flex;
+        display: none;
         flex-direction: column;
         justify-content: center; /* Alinha tudo no topo */
         height: 100vh; /* Ocupa a altura exata da tela */
