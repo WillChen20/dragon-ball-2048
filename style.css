@@ -7,8 +7,9 @@ body{
     height: 100vh;
     margin: 0;
     color: white;
-    overflow: hidden;
+    overflow: auto;
     font-family: 'Arial', sans-serif;
+    touch-action: pan-y;
 }
 
 #start-screen {
@@ -59,9 +60,9 @@ body{
 
 #game-board{
     display: grid;
-    width: repeat(var(--grid-size), var(--cell-size));
-    height: repeat(var(--grid-size), var(--cell-size));
-    --cell-size: calc((min(90vmin, 500px) - (var(--grid-size) + 1) * var(--cell-gap)) / var(--grid-size));
+    width: repeat(var(--grid-size) * var(--cell-size) + (var(--grid-size) + 1) * var(--cell-gap));
+    height: repeat(var(--grid-size) * var(--cell-size) + (var(--grid-size) + 1) * var(--cell-gap));
+    --cell-size: calc((min(80vmin, 400px) - (var(--grid-size) + 1) * var(--cell-gap)) / var(--grid-size));
     grid-template-columns: repeat(var(--grid-size), var(--cell-size));
     grid-template-rows: repeat(var(--grid-size), var(--cell-size));
     gap: var(--cell-gap);
@@ -71,7 +72,7 @@ body{
     padding: var(--cell-gap);
     border-radius: 10px;
     position: relative;
-    margin: 20px 0;
+    margin: 10% 0;
     touch-action: none;
 }
 
@@ -80,11 +81,13 @@ body{
     display: none;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     width: 100%;
-    height: 100%;
-    padding: 10px;
+    padding: 20px 10px;
     animation: fadeIn 0.8s ease-in-out;
+    min-height: 100vh;
+    box-sizing: border-box; /* Garante que o padding não aumente o tamanho total */
+    overflow-y: auto;
 }
 
 .controls {
@@ -452,4 +455,41 @@ body.tema-dbs .tile[data-value="2048"]{
     color: #ff0000;
     text-shadow: 2px 2px 4px #000;
     margin-bottom: 20px;
+}
+
+#game-over .game-over-text {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #ffffff;
+}
+
+#game-over .game-over-text p {
+    font-size: 1.4rem;
+    margin: 8px 0;
+    text-shadow: 1px 1px 2px #000;
+}
+
+@media (max-width: 500px) {
+    #game-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Alinha tudo no topo */
+        height: 100vh; /* Ocupa a altura exata da tela */
+        padding: 20px 0; /* Reduz o padding para dispositivos móveis */
+        min-height: 100vh; /* Garante que o container ocupe toda a altura da tela */
+        align-items: center;
+    }
+
+    #game-board {
+        width: 85vw; /* Diminui um pouco para sobrar espaço */
+        height: 85vw;
+        margin: 0 auto;
+        max-width: 400px; /* Limita o tamanho máximo para telas maiores */
+        max-height: 400px;
+    }
+
+    #score-container {
+        margin-top: 5px;
+        font-size: 1.5rem;
+    }
 }

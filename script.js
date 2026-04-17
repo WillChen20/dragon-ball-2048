@@ -22,8 +22,37 @@ const versoes ={
 
 const gameBoard = document.getElementById("game-board");
 const scoreText = document.getElementById("score");
+const gameOverScoreText = document.getElementById("game-over-score");
+const gameOverBestText = document.getElementById("game-over-best");
 
 var game_score = 0;
+
+function getStoredBestScore() {
+    return parseInt(localStorage.getItem("dbz2048BestScore") || "0", 10);
+}
+
+function setStoredBestScore(score) {
+    localStorage.setItem("dbz2048BestScore", score);
+}
+
+function updateBestScore(score) {
+    const best = getStoredBestScore();
+    if (score > best) {
+        setStoredBestScore(score);
+        return score;
+    }
+    return best;
+}
+
+function renderGameOverScore() {
+    if (gameOverScoreText) {
+        gameOverScoreText.textContent = `Score final: ${game_score}`;
+    }
+    const best = updateBestScore(game_score);
+    if (gameOverBestText) {
+        gameOverBestText.textContent = `Melhor score: ${best}` + (best === game_score && best > 0 ? " (Novo recorde!)" : "");
+    }
+}
 
 let grid;
 
@@ -398,6 +427,7 @@ if (restartBtnOver) {
 }
 
 function mostrarGameOver() {
+    renderGameOverScore();
     const gameOverScreen = document.getElementById("game-over");
     if (gameOverScreen) {
         gameOverScreen.classList.add("show");

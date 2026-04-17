@@ -12,10 +12,11 @@ export default class Tile {
   }
 
   set value(v) {
-    this.#value = v;
-    this.#tileElement.textContent = v;
-    this.#tileElement.setAttribute("data-value", v);
-    const power = Math.log2(v);
+    const numericValue = Number(v);
+    this.#value = Number.isFinite(numericValue) ? numericValue : 0;
+    this.#tileElement.textContent = this.#value;
+    this.#tileElement.setAttribute("data-value", this.#value);
+    const power = Math.log2(this.#value);
     const backgroundLightness = 100 - power * 9;
     this.#tileElement.style.setProperty(
       "--background-lightness",
