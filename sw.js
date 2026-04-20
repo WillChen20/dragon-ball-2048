@@ -1,4 +1,4 @@
-const CACHE_NAME = 'db2048-v1';
+const CACHE_NAME = 'db2048-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -20,7 +20,7 @@ const ASSETS = [
   './img/DBS/goku.png',
   './img/DBS/gokublue.png',
   './img/DBS/gokubluekaioken.png',
-  './img/DBS/gokublekaiokengenkidama.png',
+  './img/DBS/gokubluekaiokengenkidama.png',
   './img/DBS/gokucompleto.png',
   './img/DBS/gokugod.png',
   './img/DBS/gokuincomplete.png',
@@ -38,10 +38,7 @@ const ASSETS = [
   './img/DBGT/gokussj3.png',
   './img/DBGT/gokussj4.png',
   './img/DBGT/gokussj5.png',
-  './img/DBGT/gokufull.png',
-
-
-
+  './img/DBGT/gokussjfull.png'
 ];
 
 // Instalação: Salva os arquivos no cache
@@ -60,4 +57,11 @@ self.addEventListener('fetch', event => {
       return response || fetch(event.request);
     })
   );
+});
+
+// Apenas para descobrir o culpado:
+ASSETS.forEach(asset => {
+  fetch(asset).then(res => {
+    if(!res.ok) console.error("Arquivo não encontrado para o Cache:", asset);
+  });
 });
